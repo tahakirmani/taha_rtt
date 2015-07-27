@@ -27,7 +27,7 @@ public function rate_teacher()
 		$rating= $this->input->post('rating');
 		
 		$this->load->model('teacher_rating');
-		$this->teacher_rating->
+		//$this->teacher_rating->
 	}
 
 

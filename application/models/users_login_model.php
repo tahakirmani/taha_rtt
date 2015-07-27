@@ -11,8 +11,7 @@
 		{		
 			$query =$this->db->query(
 								"select * from users 
-								where username= '$username'	 ");
-			
+								where username= '$username'	 ");			
 								
 			if($query->num_rows() !=0 )
 			{			
