@@ -13,6 +13,7 @@ public function searched_data()
 		
 		$this->load->model('teacher_model');
 		$this->load->model('comments');
+		$this->load->model('comment_likes');
 		
 		$data= $this->teacher_model->get_teacher_data_by_id($teacher_id);
 		$data['teacher_profile_data']= $data; 
@@ -105,7 +106,15 @@ public function update_likes()
 	$comment_id= $this->uri->segment(3);
 	
 	$this->load->model('comments');
-	$this->comments->set_comment_likes($comment_id);
+	$this->load->model('comment_likes');
+	
+	$comments_model_data= $this->comments->get_comments_data($comment_id);
+
+	foreach($comments_model_data as $comments_data)
+	{
+		 $user_id= $comments_data->user_id;		
+		$this->comment_likes->set_comment_likes($comment_id, $user_id);
+	}
 }
 
 }

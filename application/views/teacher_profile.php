@@ -82,11 +82,20 @@
 		
 		<?php		
 		 
-			$this->load->model('comments'); 
-			$comments_reply= $this->comments->get_comments_reply($comment_id);	
-			$comments_like= $this->comments->get_comment_likes($comment_id);
+			$this->load->model('comments');
+		//	$this->load->model('comment_likes');
+			
+			$comments_reply= $this->comments->get_comments_reply($comment_id);			
+			$comments_like= $this->comment_likes->get_comment_likes($comment_id);
 
-			echo "<strong>Likes:</strong>	".$comments_like[0]->total_likes;
+			if($comments_like != null)
+			{
+				echo "<strong>Likes:</strong>	".$comments_like[0]->total_likes;
+			}
+			else
+			{
+				echo "<strong>Likes:</strong>0	";
+			}
 			?>
 			
 			<h3>Replies</h3>

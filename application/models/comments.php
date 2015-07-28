@@ -10,6 +10,12 @@ Class Comments extends CI_MODEL
 		parent::__construct();		
 	}
 	
+	public function get_comments_data($comment_id)
+	{
+		$query= $this->db->query("select * from comments where comment_id= $comment_id");
+		return $query->result();
+	}
+	
 	public function view_all_comments($teacher_id)
 	{
 		$query= $this->db->query("select * from comments 
@@ -68,7 +74,7 @@ Class Comments extends CI_MODEL
 		return $query->result();
 	}
 	
-	
+	/*
 	public function get_comment_likes($comment_id)
 	{
 		$query= $this->db->query("select total_likes  from comments where comment_id= $comment_id ");
@@ -94,7 +100,7 @@ Class Comments extends CI_MODEL
 		$this->db->where('comment_id', $comment_id);
 		$this->db->update('comments', $data);
 	}
-	
+	*/
 }
 
 
