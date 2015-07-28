@@ -12,12 +12,20 @@ Class Teacher_rating extends CI_MODEL
 	
 	public function get_teacher_rating($teacher_id)
 	{	
-		$this->db->select('*');
+		$this->db->select('rating');
 		$this->db->from($this->table);		
 		$this->db->where('teacher_id', $teacher_id);
 		
 		$query= $this->db->get();
-		return $query->result();
+		
+		if($query->num_rows() > 0)
+		{		
+			return $query->result();
+		}
+		else
+		{
+			return NULL; 
+		}
 	}
 	
 	

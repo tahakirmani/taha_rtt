@@ -47,7 +47,6 @@
  <?php 	echo form_open('data_controller/user_comments'); ?>  <!-- teacher_id , SessionId -->	
 	<h3>Comment</h3>
 	<form>
-	<!--	<textarea name="comment" rows="4" cols="50"> </textarea>	  -->
 	<?php echo form_textarea('comments', 'Enter Your Comments'); ?>
 		<input name="user_id"    hidden type="text" value="<?php echo $user_id; ?>"/>
 		<input name="teacher_id" hidden  type="text" value="<?php echo $teacher_id; ?>"/>		
@@ -55,5 +54,87 @@
 	</form>	
  <?php echo form_close(); ?>	
 	
+	
+<!--  User Comments  -->
+ <h2>Users Comments</h2>
+ 
+ <?php 
+
+ 
+ 	foreach($users_comments as $comments)
+ 	{
+ 		$comment_id= 	$comments->comment_id;	
+ 		$comment= 		$comments->comment;
+ 		$comment_by=	$comments->first_name;
+ 		$comment_date=	$comments->date;
+ 		$city=			$comments->city;
+ 		
+ 		$trim_date_pos= strpos($comment_date, ':');
+ 		$trim_date= substr($comment_date, 0, $trim_date_pos-2 );
+ 		
+ 		echo $comment; 
+ 		echo "<br>";
+ 		echo "<h4>".$comment_by."    ";
+ 		echo $trim_date."</h4>";
+ 		//echo "<br>";
+?>
+<!--  <h3>Replies</h3>  -->
+		
+		<?php		
+		 
+			$this->load->model('comments'); 
+			$comments_reply= $this->comments->get_comments_reply($comment_id);	
+			$comments_like= $this->comments->get_comment_likes($comment_id);
+
+			echo "<strong>Likes:</strong>	".$comments_like[0]->total_likes;
+			?>
+			
+			<h3>Replies</h3>
+			
+			<?php 
+			foreach($comments_reply as $comments_reply_data)
+			{
+				$reply_comment_id= 		$comments_reply_data->comment_id;
+				$reply_comment= 		$comments_reply_data->comment;
+				$reply_comment_by=		$comments_reply_data->first_name;
+				$reply_comment_date=	$comments_reply_data->date;
+				$reply_city=			$comments_reply_data->city;
+					
+				$trim_date_pos= strpos($reply_comment_date, ':');
+				$trim_date= substr($reply_comment_date, 0, $trim_date_pos-2 );
+				
+				
+				echo "<br>";
+				echo $reply_comment."  -  " .$reply_comment_by;
+				echo "<br>";
+				
+			}
+			
+			?>
+
+<!--  REPLIES END  -->
+
+		<a href="<?php echo base_url();?>index.php/data_controller/edit_comments/<?php echo $comment_id;  ?>">Edit</a>
+		<a href="#">Reply</a>
+		<a href="<?php echo base_url();?>index.php/data_controller/update_likes/<?php  echo $comment_id;  ?>">Like</a>
+		<br>
+		 <!--  REPLY -->
+		 		
+		 <?php 	echo form_open('data_controller/user_comment_reply'); ?>  <!-- teacher_id , SessionId -->	
+			
+			<form>
+			<?php echo form_textarea('comments', 'Enter Your Reply'); ?>
+				<input name="reply_id" hidden  type="text" value="<?php echo $comment_id; ?>"/>
+				<input name="user_id"    hidden type="text" value="<?php echo $user_id; ?>"/>
+				<input name="teacher_id" hidden  type="text" value="<?php echo $teacher_id; ?>"/>		
+				<button type="submit" class="btn btn-default">Submit</button>	
+			</form>	
+ 		<?php echo form_close(); ?>
+		<hr><hr><hr><hr>	<hr><hr><hr><hr>	<hr><hr><hr><hr>
+		<br><br>
+<?php 
+ 	}
+ 
+ ?>
   </body>
  </html> 

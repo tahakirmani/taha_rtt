@@ -105,6 +105,9 @@ public function searchTeacher()
 	$this->load->view('searchResults',$data);
 	
 }	
+
+
+
 	
 	
 }
