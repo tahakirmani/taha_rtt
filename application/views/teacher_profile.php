@@ -1,6 +1,8 @@
 <!DOCTYPE html>
 <html lang="en">
   <head>
+  
+  <?php include 'rating_head.php'; ?>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -9,6 +11,7 @@
 
     <!-- Bootstrap -->
     <link href="<?php echo base_url() ?>assets/css/bootstrap.css" rel="stylesheet">
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
 
     <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
@@ -68,11 +71,34 @@
  <?php echo form_close(); ?>	
 	
 	
+	<!--- Rating API --><div class="star-ratings">
+									<div class="stars stars-example-fontawesome">
+
+									<select id="example-fontawesome" name="rating">
+										<option value="1">1</option>
+										<option value="2">2</option>
+										<option value="3">3</option>
+										<option value="4">4</option>
+										<option value="5">5</option>
+									</select>
+
+									<span class="title">Font Awesome</span>
+
+								</div>
+						</div>
+	
+	<!-- Rating API -->
+	
+	
 <!--  User Comments  -->
  <h2>Users Comments</h2>
  
  <?php 
 
+ 
+ //
+ 
+ //
  
  	foreach($users_comments as $comments)
  	{
@@ -171,5 +197,9 @@
  	}
  
  ?>
+ 	<script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
+ <script src="<?php echo base_url(); ?>assets/js/jquery.barrating.min.js"></script>
+ <script src="<?php echo base_url(); ?>assets/js/examples.js"></script>
+ <script>window.jQuery || document.write('<script src="<?php echo base_url(); ?>assets/js/vendor/jquery-1.11.2.min.js"><\/script>')</script>
   </body>
  </html> 

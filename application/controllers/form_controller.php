@@ -6,6 +6,7 @@ public function __constructor()
 	{
 		parent::__constructor();	
 		$this->load->library('upload', $config);
+	//	$this->load->helper('date');
 		$user_id;
 		$teacher_id;
 		//$this->load->model('users_images');
@@ -90,6 +91,8 @@ public function __constructor()
 	
 	public function register_teacher()
 	{
+		$this->load->helper('date');
+		
 		$first_name= 	$this->input->post('f_name');
 		$last_name= 	$this->input->post('l_name');	
 		$gender=		$this->input->post('gender');
@@ -107,6 +110,8 @@ public function __constructor()
 		
 		$loggedinUserid= $this->input->post('loggedinUserid');
 		
+		$now = time();
+		unix_to_human($now);
 		
 		$data= array(
 					"first_name" 	=> 	$first_name,
@@ -116,7 +121,8 @@ public function __constructor()
 					"city"			=>	$city,
 					"contact_number"=>	$contact,
 					"information"	=>	$information,
-					"added_by"		=>  $loggedinUserid
+					"added_by"		=>  $loggedinUserid,
+					"date_added"	=>  unix_to_human($now)
 		);		
 		$this->load->model('teacher_model');
 		$this->teacher_id =	$this->teacher_model->add_teacher($data);	
