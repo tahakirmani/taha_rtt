@@ -9,6 +9,13 @@
 
     <!-- Bootstrap -->
     <link href="<?php echo base_url() ?>assets/css/bootstrap.css" rel="stylesheet">
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
+    <script src='https://www.google.com/recaptcha/api.js'></script>
+    <script>
+    function recaptchaCallback() {
+        $('#submitBtn').removeAttr('disabled');
+    };
+    </script>
 
     <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
@@ -116,9 +123,11 @@
  
  <input type="text" name= "loggedinUserid" hidden value="<?php echo $loggedinUserid; ?>" />
 
+    <!--  CAPTCHA -->
+  <div class="g-recaptcha" data-callback="recaptchaCallback" data-sitekey="6LdjfQoTAAAAALn22Lz3arCin_8qwNaQ90dmlPtr"></div>
+   <!-- CAPTCHA  -->
  
- 
-  <button type="submit" class="btn btn-default">Submit</button>
+  <button type="submit" id="submitBtn" disabled class="btn btn-default">Submit</button>
 </form>
 	
  
