@@ -40,7 +40,7 @@ Class Comment_likes extends CI_MODEL
 			);
 		}	
 		$this->db->where('comment_id', $comment_id);
-		$this->db->update('comments', $data);
+		$this->db->update('comments', $data); 
 	}
 	
 	
@@ -48,7 +48,7 @@ Class Comment_likes extends CI_MODEL
 	
 	public function set_comment_likes($comment_id, $user_id )
 	{		
-		$query= $this->db->query("select total_likes  from comment_likes where comment_id= $comment_id ");
+/* 		$query= $this->db->query("select total_likes  from comment_likes where comment_id= $comment_id ");
 		
 		if($query->num_rows() > 0)
 		{
@@ -66,7 +66,7 @@ Class Comment_likes extends CI_MODEL
 			}			
 			
 			else
-			{
+			{ */
 				$total_likes=1;
 										
 					$data= array(
@@ -76,9 +76,44 @@ Class Comment_likes extends CI_MODEL
 					);
 					
 					$this->db->insert('comment_likes', $data);
-			}
+			//}
 		}
 		
+		
+		public function unset_comment_likes($comment_id, $user_id )
+		{
+			$this->db->where("comment_id", $comment_id);
+			$this->db->where("user_id", $user_id);
+			
+			$this->db->delete("comment_likes");
+		}
+		
+		public function count_likes($comment_id)
+		{
+			$query=$this->db->query("select count(total_likes) as total_likes from comment_likes where comment_id= $comment_id");
+			if($query->num_rows() >0){
+				return $query->result();
+			}
+			else{
+				return null;
+				//return $query->result();
+			}			
+		}
+		
+		public function isLikeExists($comment_id, $user_id)
+		{
+			$query= $this->db->query("select * from comment_likes 
+										where 
+										comment_id= $comment_id and user_id= $user_id");
+			
+			if($query->num_rows() > 0 )	{
+				return true;
+			}
+			else{
+				return false;
+			}
+
+		}
 }
 
 

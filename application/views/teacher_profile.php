@@ -86,7 +86,8 @@
 		//	$this->load->model('comment_likes');
 			
 			$comments_reply= $this->comments->get_comments_reply($comment_id);			
-			$comments_like= $this->comment_likes->get_comment_likes($comment_id);
+			//$comments_like= $this->comment_likes->get_comment_likes($comment_id);
+			$comments_like= $this->comment_likes->count_likes($comment_id);
 
 			if($comments_like != null)
 			{
@@ -125,7 +126,19 @@
 
 		<a href="<?php echo base_url();?>index.php/data_controller/edit_comments/<?php echo $comment_id;  ?>">Edit</a>
 		<a href="#">Reply</a>
-		<a href="<?php echo base_url();?>index.php/data_controller/update_likes/<?php  echo $comment_id;  ?>">Like</a>
+		
+		<?php
+		$likeStatus; 
+		if($this->comment_likes->isLikeExists($comment_id, $user_id)){
+			$likeStatus= "Unlike";
+		}
+		else{
+			$likeStatus= "Like";
+		}
+		
+		?>
+		
+		<a href="<?php echo base_url();?>index.php/data_controller/update_likes/<?php  echo $comment_id;  ?>"><?php echo $likeStatus; ?></a>
 		<br>
 		 <!--  REPLY -->
 		 		

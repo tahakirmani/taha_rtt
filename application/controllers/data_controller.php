@@ -112,8 +112,18 @@ public function update_likes()
 
 	foreach($comments_model_data as $comments_data)
 	{
-		 $user_id= $comments_data->user_id;		
-		$this->comment_likes->set_comment_likes($comment_id, $user_id);
+		$user_id= $comments_data->user_id;
+		
+		if($this->comment_likes->isLikeExists($comment_id, $user_id)){
+			//echo "Already Liked this Comment";
+			$this->comment_likes->unset_comment_likes($comment_id, $user_id);
+			
+		}
+		else{
+			$this->comment_likes->set_comment_likes($comment_id, $user_id);		
+		}
+		//$user_id= $comments_data->user_id;		
+		//$this->comment_likes->set_comment_likes($comment_id, $user_id);
 	}
 }
 
