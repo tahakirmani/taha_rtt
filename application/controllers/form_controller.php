@@ -5,6 +5,9 @@ class Form_controller extends CI_CONTROLLER
 public function __constructor()
 	{
 		parent::__constructor();	
+		$this->load->library('upload', $config);
+		$user_id;
+		//$this->load->model('users_images');
 	}
 	
 	public function register_user()
@@ -32,8 +35,54 @@ public function __constructor()
 		);
 		
 		$this->load->model('users');
-		$this->users->add_user($data);
+		$this->user_id= $this->users->add_user($data);
+		$this->do_upload();
 			
+	}
+	
+	function do_upload()
+	{
+		$this->load->model('users_images');
+		
+		$config['upload_path'] = './uploads/';
+		$config['allowed_types'] = 'gif|jpg|png';
+		$config['max_size']	= '1000';
+		$config['create_thumb'] = TRUE;
+		$config['maintain_ratio'] = TRUE;
+	
+		$max_image_id= $this->users_images->get_image_id();		
+	
+		$file_without_spaces = preg_replace('/\s+/', '_',$_FILES['userfile']['name']);
+		$new_file_name="image_".$max_image_id[0]->image_id."_".$this->user_id;		
+		$config['file_name'] =$new_file_name;
+
+		$this->load->library('upload', $config);
+	
+		if ( ! $this->upload->do_upload()){
+			$error = array('error' => $this->upload->display_errors());
+			$this->load->view('upload_form', $error);
+		}
+		else{
+			
+			$data = array('upload_data' => $this->upload->data());
+			
+			//
+			$file_path_pos= strpos($config['upload_path'], "/");
+			$file_path_str= substr($config['upload_path'], $file_path_pos);
+			$image_path= $file_path_str.$new_file_name.'.'. $data['upload_data']['image_type'];
+			
+			
+			$data= array(
+			
+					"user_id" 		=> $this->user_id,
+					"image_path"	=> $image_path,
+					"active"		=> "Yes"
+			
+			);
+			$this->users_images->add_image($data);			
+			//			
+		
+		}
 	}
 	
 

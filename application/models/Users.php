@@ -31,7 +31,7 @@ class Users extends CI_MODEL
 	{
 		if($this->db->insert($this->table,$data))
 		{
-			return true;
+			return $this->db->insert_id();
 		}
 		else
 		{

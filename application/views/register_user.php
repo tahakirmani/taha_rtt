@@ -19,7 +19,7 @@
   </head>
   <body>
  
- <?php echo form_open('form_controller/register_user'); ?>
+ <?php echo form_open_multipart('form_controller/register_user'); ?>
  
  <form role="form">
   <div class="form-group">
@@ -77,7 +77,12 @@
     <input  name="dob" type="text" class="form-control" id="dob">
   </div>
 
- 
+ <div class="form-group">
+  <label for="dob">Upload Image</label>
+   <input type="file" name="userfile" size="20" />
+  </div>
+   
+   
   <button type="submit" class="btn btn-default">Submit</button>
 </form>
 	

@@ -28,4 +28,12 @@ Class Users_images extends CI_MODEL
 	{
 		
 	}
+	
+	public function get_image_id()
+	{
+		$query= $this->db->query("select max(image_id) as image_id from users_images");
+		return $query->result();
+	}
+	
+	
 }
