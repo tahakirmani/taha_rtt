@@ -27,11 +27,24 @@
   ?>  
 
   <?php  
+  
+  //print_r($teacher_profile_data);
+  
   foreach($teacher_profile_data as $teacher_data)
   {
 	//$teacher_id =			$teacher_data->teacher_id;
-	$teacher_name=			$teacher_data->first_name;
+	$first_name=			$teacher_data->first_name;
+	$last_name=				$teacher_data->last_name;
+	$country=				$teacher_data->country;
+	$contact_number=		$teacher_data->contact_number;
+	
+	
+
   }  
+  
+  echo $first_name;
+  echo " ";
+  echo $last_name; 
   ?>
   
  <?php 	echo form_open('data_controller/rate_teacher'); ?>  <!-- teacher_id,  UserId/SessionId -->
