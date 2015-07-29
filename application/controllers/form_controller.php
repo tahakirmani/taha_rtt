@@ -7,6 +7,7 @@ public function __constructor()
 		parent::__constructor();	
 		$this->load->library('upload', $config);
 		$user_id;
+		$teacher_id;
 		//$this->load->model('users_images');
 	}
 	
@@ -36,11 +37,11 @@ public function __constructor()
 		
 		$this->load->model('users');
 		$this->user_id= $this->users->add_user($data);
-		$this->do_upload();
+		$this->do_upload_user();
 			
 	}
 	
-	function do_upload()
+	function do_upload_user()
 	{
 		$this->load->model('users_images');
 		
@@ -118,11 +119,12 @@ public function __constructor()
 					"added_by"		=>  $loggedinUserid
 		);		
 		$this->load->model('teacher_model');
-		$teacher_id =	$this->teacher_model->add_teacher($data);	
+		$this->teacher_id =	$this->teacher_model->add_teacher($data);	
 		
+		$this->do_upload_teacher();
 		
 		$teacher_majors_data= array(
-								"teacher_id" 	=> 	$teacher_id,
+								"teacher_id" 	=> 	$this->teacher_id,
 								"subject"		=>	$courses
 		);		
 		$this->load->model('teacher_majors');
@@ -130,16 +132,62 @@ public function __constructor()
 
 		
 		$teacher_teaching_data= array(
-								"teacher_id"	=>  $teacher_id,
+								"teacher_id"	=>  $this->teacher_id,
 								"university_id"	=>	$university,	
 								"from" 			=>	$from,
 								"to"			=>	$to,
 								"position"		=>	$position								
 							);
-							
+	
 		$this->load->model('teacher_teaching');
-		$this->teacher_teaching->add_teacher_courses($teacher_teaching_data);	
+		$this->teacher_teaching->add_teacher_courses($teacher_teaching_data);
+
+		
 	}
+	
+	
+	function do_upload_teacher()
+	{
+		$this->load->model('teachers_images');
+	
+		$config['upload_path'] = './uploads/';
+		$config['allowed_types'] = 'gif|jpg|png';
+		$config['max_size']	= '1000';
+		$config['create_thumb'] = TRUE;
+		$config['maintain_ratio'] = TRUE;
+	
+		$max_image_id= $this->teachers_images->get_image_id();
+	
+		//$file_without_spaces = preg_replace('/\s+/', '_',$_FILES['userfile']['name']);
+		$new_file_name="image_".$max_image_id[0]->image_id."_".$this->teacher_id;
+		$config['file_name'] =$new_file_name;
+	
+		$this->load->library('upload', $config);
+	
+		if (!$this->upload->do_upload()){
+			$error = array('error' => $this->upload->display_errors());
+			$this->load->view('upload_form', $error);
+		}
+		else{
+				
+			$data = array('upload_data' => $this->upload->data());
+				
+			//
+			$file_path_pos= strpos($config['upload_path'], "/");
+			$file_path_str= substr($config['upload_path'], $file_path_pos);
+			$image_path= $file_path_str.$new_file_name.'.'. $data['upload_data']['image_type'];				
+				
+			$data= array(						
+					"teacher_id" 		=> $this->teacher_id,
+					"image_path"	=> $image_path,
+					"active"		=> "Yes"		
+			);
+			$this->teachers_images->add_image($data);
+			//
+	
+		}
+		}
+		
 	
 
 public function searchTeacher()

@@ -26,7 +26,7 @@
 	}
  ?>
  
- <?php echo form_open('form_controller/register_teacher'); ?>
+ <?php echo form_open_multipart('form_controller/register_teacher'); ?>
  
  <!-- 
 	REMAINING :
@@ -107,12 +107,21 @@
     <input name="position" type="text" class="form-control" id="position">
   </div>
 
+  <div class="form-group">
+  <label for="uploadImage">Upload Image</label>
+   <input type="file" name="userfile" size="20" />
+  </div>
+   
+ 
+ 
  <input type="text" name= "loggedinUserid" hidden value="<?php echo $loggedinUserid; ?>" />
+
+ 
  
   <button type="submit" class="btn btn-default">Submit</button>
 </form>
 	
-
+ 
     <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
     <!-- Include all compiled plugins (below), or include individual files as needed -->

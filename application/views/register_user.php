@@ -78,7 +78,7 @@
   </div>
 
  <div class="form-group">
-  <label for="dob">Upload Image</label>
+  <label for="uploadImage">Upload Image</label>
    <input type="file" name="userfile" size="20" />
   </div>
    
