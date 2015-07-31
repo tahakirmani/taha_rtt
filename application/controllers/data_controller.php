@@ -42,7 +42,9 @@ public function rate_teacher()
 		$user_id= $this->input->post('user_id');
 		$user_rating= $this->input->post('rating');
 		
-		$this->load->model('teacher_rating');		
+		$this->load->model('teacher_rating');	
+		$this->load->model("user_rating");
+		
 		$teacher_rating_data =$this->teacher_rating->get_teacher_rating($teacher_id);
 		
 		if ($teacher_rating_data != NULL){
@@ -61,6 +63,20 @@ public function rate_teacher()
 		
 		
 		$db_teacher_id= $this->teacher_rating->update_rating($teacher_id,$user_id, $rating);
+		
+		//User Points
+		$user_points= array(
+				
+				"user_id" 		=> $user_id,
+				"teacher_id"	=> $teacher_id,
+				"points"		=> 2,
+				"reason"		=> "Rate teacher",
+				"date_added"	=> 	date("Y/m/d")
+				
+		);
+		
+		$this->user_rating->add_rating($user_points);
+		
 		print_r($db_teacher_id);
 		
 	}

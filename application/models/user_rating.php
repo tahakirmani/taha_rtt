@@ -1,26 +1,27 @@
 <?php
 
 
-public class Users_rating extends CI_MODEL
-{
-	$table= "users_rating";
-
-	public __construct()
+class User_rating extends CI_MODEL
+{	
+	var $table= "users_rating";
+	
+	public function __construct()
 	{
 		parent::__construct();
+		
 	}
 	
 	
 	public function get_user_ratings($id)
 	{
-		$query= $this->db->get($table);
+		$query= $this->db->get($this->table);
 		return $query->result();
 	}
 	
 	
-	public function add_rating($user_id, $data)
+	public function add_rating($data)
 	{
-		if($this->db->insert($table,$data))
+		if($this->db->insert($this->table,$data))
 		{
 			return true;
 		}
@@ -30,7 +31,7 @@ public class Users_rating extends CI_MODEL
 	public function update_user_rating($user_id, $points)
 	{
 		$this->db->where("user_id", $user_id);
-		if($this->db->update($table,$points))
+		if($this->db->update($this->table,$points))
 		{
 			return true;
 		}
@@ -47,7 +48,7 @@ public class Users_rating extends CI_MODEL
 		
 		
 	}
-
+}
 
 	
 ?>
