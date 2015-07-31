@@ -131,7 +131,7 @@ public function __constructor()
 		
 		$teacher_majors_data= array(
 								"teacher_id" 	=> 	$this->teacher_id,
-								"subject"		=>	$courses
+								"course_id"		=>	$courses
 		);		
 		$this->load->model('teacher_majors');
 		$this->teacher_majors->add_teacher_majors($teacher_majors_data);
@@ -194,6 +194,37 @@ public function __constructor()
 		}
 		}
 		
+		
+public function update_user_profile()
+{
+	$user_id= 		$this->input->post('user_id');
+	$first_name= 	$this->input->post('f_name');
+	$last_name= 	$this->input->post('l_name');
+	$email=			$this->input->post('email');
+	$password=		$this->input->post('password');
+	$gender=		$this->input->post('gender');
+	$dob=			$this->input->post('dob');
+	$city=			$this->input->post('city');
+	$contact=		$this->input->post('contact');
+	$password=		$this->input->post('password');
+	
+	$hashPassword = $this->encrypt->encode($password);
+	
+	$data= array(
+			"first_name" 	=> 	$first_name,
+			"last_name" 	=> 	$last_name,
+			"email"			=> 	$email,			
+			"gender"		=>	$gender,
+			"dob"			=> 	$dob,
+			"city"			=>	$city,
+			"contact_number"=>	$contact,
+			"password"		=>	$hashPassword
+	);
+	
+	$this->load->model('users');
+	$this->users->update_user($user_id, $data);
+	
+}		
 	
 
 public function searchTeacher()

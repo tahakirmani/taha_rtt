@@ -8,6 +8,13 @@ Class Teacher_model extends CI_MODEL
 		parent::__construct();
 	}
 	
+	
+	public function get_all_teachers()
+	{
+		$query= $this->db->query("select * from teachers ");
+		return $query->result();
+	}
+	
 	public function get_teacher_data_by_id($teacher_id)
 	{				
 		$query = $this->db->query(

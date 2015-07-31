@@ -9,6 +9,13 @@ Class Users_images extends CI_MODEL
 		parent::__construct();
 	}
 	
+	public function get_user_image($user_id)
+	{
+		$query= $this->db->query("select * from users_images where user_id = $user_id and active= 'Yes'");
+		return $query->result();
+	}
+	
+	
 	public function add_image($data)
 	{
 		if($this->db->insert($this->table, $data))

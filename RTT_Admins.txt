@@ -1,9 +1,9 @@
 Admin:
 ==========================================
 Add/Update/Delete courses 				 		[DONE]
-Assign Teacher or Student Roles
+Assign Teacher or Student Roles					[]
 Pending Requests -Teachers [Approve Teachers]	[DONE]
-New Comments/ Hide Comments 					
-View All Registered users/ Ban Users
-View All Registered Teachers /Ban Teachers
+New Comments/ Hide Comments 					[]
+View All Registered users/ Ban Users			[DONE]
+View All Registered Teachers /Ban Teachers		[DONE]
 ==========================================

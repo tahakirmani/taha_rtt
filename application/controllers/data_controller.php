@@ -7,6 +7,17 @@ public function __constructor()
 		parent::__constructor();	
 	}
 
+	
+public function user_profile()
+{
+	$this->load->model("users");
+	$user_id= $this->uri->segment(3);
+	
+	$data['user_data']=$this->users->get_user_data($user_id);
+	$this->load->view("user_profile", $data);
+	
+}	
+	
 public function searched_data()
 	{
 		$teacher_id= 	$this->uri->segment(3);

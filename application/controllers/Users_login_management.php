@@ -15,7 +15,7 @@ public function __constructor()
 		$this->load->model('Users_login_model');
 		if($this->Users_login_model->userLogin($username, $password))
 		{
-			echo "Success";
+			$this->load->view('home_page');
 		}
 		else
 		{

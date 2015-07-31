@@ -44,4 +44,30 @@ class Load_view_controller extends CI_CONTROLLER
 		$data['unapproved_teachers_list'] = $this->teacher_model->get_unapproved_teachers_list();
 		$this->load->view('admin/unapproved_teachers_list',$data);
 	}
+	
+	
+	//View All Users
+	
+	public function view_all_users()
+	{
+		$this->load->model('users');
+		$data['view_all_users']= $this->users->get_all_users();	
+		$this->load->view('admin/view_all_users', $data);
+	}
+	
+	
+
+	//View All Users
+	
+	public function view_all_teachers()
+	{
+		$this->load->model('teacher_model');
+		$data['view_all_teachers']= $this->teacher_model->get_all_teachers();
+		$this->load->view('admin/view_all_teachers', $data);
+	}
+	
+		
+	
+	
+	
 }

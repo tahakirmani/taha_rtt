@@ -19,9 +19,9 @@
 			
 				foreach ($result as $row)
 				{
-					$username= 	$row->username;
-					$user_id=	$row->user_id;
-					$dbPassword= $row->password;
+					$username= 		$row->username;
+					$user_id=		$row->user_id;
+					$dbPassword= 	$row->password;
 					
 					$hashPassword= $this->encrypt->decode($dbPassword);
 					

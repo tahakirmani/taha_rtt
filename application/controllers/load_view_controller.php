@@ -27,11 +27,23 @@ public function __constructor()
 		$this->load->view('login');
 	}
 
-
 	public function searchTeacher()
 	{
 		$this->load->view('search_teacher');
 	}	
+	
+	public function update_user_profile()
+	{
+		$user_id= $this->uri->segment(3);
+		
+		$this->load->model('users');
+		$this->load->model('users_images');
+		$data['user_data']= 	$this->users->get_user_data($user_id);
+		$data['user_image']=	$this->users_images->get_user_image($user_id);
+		
+		$this->load->view('update_user_profile', $data);	
+		
+	}
 }
 
 ?>
