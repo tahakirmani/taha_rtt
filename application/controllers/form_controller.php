@@ -122,7 +122,7 @@ public function __constructor()
 					"contact_number"=>	$contact,
 					"information"	=>	$information,
 					"added_by"		=>  $loggedinUserid,
-					"date_added"	=>  unix_to_human($now)
+					"date_added"	=>  date("Y/m/d h:i:sa")
 		);		
 		$this->load->model('teacher_model');
 		$this->teacher_id =	$this->teacher_model->add_teacher($data);	
