@@ -16,6 +16,12 @@ Class Courses extends CI_MODEL
 		return $query->result();
 	}
 	
+	public function get_course_by_id($course_id)
+	{
+		$query= $this->db->query("select * from courses where course_id =$course_id");
+		return $query->result();
+	}
+	
 	public function add_course($data)
 	{
 		if($this->db->insert("courses", $data))

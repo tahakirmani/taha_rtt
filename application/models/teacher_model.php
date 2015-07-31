@@ -9,9 +9,7 @@ Class Teacher_model extends CI_MODEL
 	}
 	
 	public function get_teacher_data_by_id($teacher_id)
-	{
-		//$teacher_id= $this->uri->segment(3);
-		
+	{				
 		$query = $this->db->query(
 					"select * from teachers 
 					left join teacher_majors
@@ -32,15 +30,21 @@ Class Teacher_model extends CI_MODEL
 
 
 	public function get_teacher_data_by_name($name)
-	{
-	
-		
+	{		
 		$query = $this->db->query(
 					"select * from teachers where first_name like '%$name%'	"
 						);
 		
 		return $query->result();		
 	}	
+	
+	
+	public function get_unapproved_teachers_list()
+	{
+		$query= $this->db->query("select * from teachers where approved ='' or approved ='no'");
+		return $query->result();
+	}
+	
 	
 	public function add_teacher($data)
 	{		
@@ -52,12 +56,12 @@ Class Teacher_model extends CI_MODEL
 	}	
 	
 	
-	public function approved_teacher($id, $data)
+	public function approved_teacher($teacher_id, $data)
 	{
-		$teacher_id= $id; 
+		//$teacher_id= $id; 
 		
 		$this->db->where("teacher_id", $teacher_id);
-		$this->db->update($data, $this->table);
+		$this->db->update("teachers", $data);
 	}
 	
 	public function update_teacher_info($data, $id)
@@ -80,6 +84,7 @@ Class Teacher_model extends CI_MODEL
 			return true;
 		}
 	}
+	
 	
 }
 
