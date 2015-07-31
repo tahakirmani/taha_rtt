@@ -12,7 +12,12 @@ foreach ($user_data as $user_profile)
 	$email=				$user_profile->email;
 	$contact_number=	$user_profile->contact_number;
 
-	$user_id= $this->uri->segment(3);
+	//$user_id= $this->uri->segment(3);
+	if($this->session->userdata())
+	{
+		$user_id= $this->session->userdata('user_id');
+	}
+	
 ?>
 
 <a href="<?php echo base_url(); ?>index.php/load_view_controller/update_user_profile/<?php echo $user_id; ?>">Update</a>

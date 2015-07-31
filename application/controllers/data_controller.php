@@ -11,7 +11,12 @@ public function __constructor()
 public function user_profile()
 {
 	$this->load->model("users");
-	$user_id= $this->uri->segment(3);
+	//$user_id= $this->uri->segment(3);
+	if($this->session->userdata())
+	{
+		$user_id= $this->session->userdata('user_id');
+	}
+	
 	
 	$data['user_data']=$this->users->get_user_data($user_id);
 	$this->load->view("user_profile", $data);

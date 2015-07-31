@@ -34,7 +34,11 @@ public function __constructor()
 	
 	public function update_user_profile()
 	{
-		$user_id= $this->uri->segment(3);
+		//$user_id= $this->uri->segment(3);
+		if($this->session->userdata())
+		{
+			$user_id= $this->session->userdata('user_id');
+		}
 		
 		$this->load->model('users');
 		$this->load->model('users_images');
