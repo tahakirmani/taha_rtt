@@ -12,8 +12,9 @@
     <!-- Bootstrap -->
     <link href="<?php echo base_url() ?>assets/css/bootstrap.css" rel="stylesheet">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
-    <script>
-
+    
+    <!-- Comment AJAX Call -->
+    <script type="text/javascript">
     $(document).ready(function(){
 
     	$(".submit").click(function(event) {
@@ -31,19 +32,77 @@
 					data: {teacher_id:teacherId, user_id: userId, comments: commentText },
         	    	success: function(){
 							$("#successComment").text("Comment Successfully Submitted.");
-            	    	},
+							$('#commentsArea').load('http://localhost/rate_the_Teacher/index.php/data_controller/searched_data/'+teacherId);
+	
+	            	    	},
 	    			error: function()	{
 		    			alert("Fail");
 		    			}
+    				});
+    		
+        	});
 
+
+
+    	//Rating AJAX
+    	/*
+
+    	$(".rate_submit_btn").click(function(event) {
+
+    		event.preventDefault();
+
+    		var teacherId= $("input#teacher_id").val();
+    		var userId= $("input#user_id").val();
+    		var user_rating =$("input#rating").val() ; 
+
+    		jQuery.ajax({
+    	    		type: "POST",
+    	    		url: "<?php echo base_url(); ?>index.php/data_controller/rate_teacher",
+					dataType: "json", 
+					data: {teacher_id:teacherId, user_id: userId, rating: user_rating },
+        	    	success: function(){
+							//$("#successComment").text("Comment Successfully Submitted.");
+							$('#commentsArea').load('http://localhost/rate_the_Teacher/index.php/data_controller/searched_data/'+teacherId);
+	
+	            	    	},
+	    			error: function()	{
+		    			alert("Fail");
+		    			}
     		});
     		
         	});
-    	
-        })
+
+    	*/
+/*
+		$(".likeComment").click(function(event){
+			event.preventDefault();
+			var comment_id= $("input#comment_id").val();
+			var teacherId= $("input#teacher_id").val();
+
+			jQuery.ajax({
+
+					type:"POST",
+					url:"<?php echo base_url(); ?>index.php/data_controller/update_likes/"+comment_id,
+					dataType: "json",
+					data:{comment_id: comment_id},
+        	    	success: function(){
+						//$("#successComment").text("Comment Successfully Submitted.");
+						$('#commentsArea').load('http://localhost/rate_the_Teacher/index.php/data_controller/searched_data/'+teacherId);
+
+            	    	},
+    				error: function()	{
+	    				alert("Fail");
+	    				}
+
+				});
+
+			});
+    	*/
+        });
 
     </script>
     
+
 
     <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
@@ -88,7 +147,7 @@
 	    <input name="rating" type="text" class="form-control" id="rating"/>
 		<input name="user_id" hidden type="text" value="<?php echo $user_id; ?>"/>
 		<input name="teacher_id" hidden type="text" value="<?php echo $teacher_id; ?>"/>
-		<button type="submit" class="btn btn-default">Submit</button>		
+		<button type="submit" class="btn btn-default rate_submit_btn">Submit</button>		
 	</form>
  <?php echo form_close(); ?>	
 	
@@ -111,7 +170,7 @@
  <div id="successComment"> </div>	
 	
 	
-	<!--- Rating API --><div class="star-ratings">
+	<!--- Rating API<div class="star-ratings">
 									<div class="stars stars-example-fontawesome">
 
 									<select id="example-fontawesome" name="rating">
@@ -128,9 +187,10 @@
 						</div>
 	
 	<!-- Rating API -->
-	
+	 -->
 	
 <!--  User Comments  -->
+<div id ="commentsArea">
  <h2>Users Comments</h2>
  
  <?php 
@@ -203,7 +263,7 @@
 
 <!--  REPLIES END  -->
 
-		<a href="<?php echo base_url();?>index.php/data_controller/edit_comments/<?php echo $comment_id;  ?>">Edit</a>
+		<a href="<?php echo base_url();?>index.php/data_controller/edit_comments/<?php echo $comment_id;  ?>" >Edit</a>
 		<a href="#">Reply</a>
 		
 		<?php
@@ -213,11 +273,12 @@
 		}
 		else{
 			$likeStatus= "Like";
-		}
+				}
 		
 		?>
 		
-		<a href="<?php echo base_url();?>index.php/data_controller/update_likes/<?php  echo $comment_id;  ?>"><?php echo $likeStatus; ?></a>
+		<a href="<?php echo base_url();?>index.php/data_controller/update_likes/<?php  echo $comment_id;  ?>" class="likeComment"><?php echo $likeStatus; ?></a>
+		<input type="text" name="comment_id" id="comment_id" hidden value="<?php echo $comment_id?>" >
 		<br>
 		 <!--  REPLY -->
 		 		
@@ -237,6 +298,7 @@
  	}
  
  ?>
+ </div>
  	<script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
  <script src="<?php echo base_url(); ?>assets/js/jquery.barrating.min.js"></script>
  <script src="<?php echo base_url(); ?>assets/js/examples.js"></script>

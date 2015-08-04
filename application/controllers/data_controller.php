@@ -82,7 +82,8 @@ public function rate_teacher()
 		
 		$this->user_rating->add_rating($user_points);
 		
-		print_r($db_teacher_id);
+		//print_r($db_teacher_id);
+		echo json_encode($rating);
 		
 	}
 
@@ -138,6 +139,7 @@ public function edit_comments()
 public function update_likes()
 {
 	$comment_id= $this->uri->segment(3);
+	//$comment_id= $this->input->post('comment_id');
 	
 	$this->load->model('comments');
 	$this->load->model('comment_likes');
@@ -159,6 +161,9 @@ public function update_likes()
 		//$user_id= $comments_data->user_id;		
 		//$this->comment_likes->set_comment_likes($comment_id, $user_id);
 	}
+	
+	echo json_encode($comments_model_data);
+
 }
 
 }
