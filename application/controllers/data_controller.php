@@ -102,6 +102,8 @@ public function user_comments()
 		
 		$this->load->model('comments');
 		$this->comments->add_comments($data);
+		
+		echo json_encode($data);
 				
 	}	
 	

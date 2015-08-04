@@ -11,7 +11,39 @@
 
     <!-- Bootstrap -->
     <link href="<?php echo base_url() ?>assets/css/bootstrap.css" rel="stylesheet">
-        <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
+    <script>
+
+    $(document).ready(function(){
+
+    	$(".submit").click(function(event) {
+
+    		event.preventDefault();
+
+    		var teacherId= $("input#teacher_id").val();
+    		var userId= $("input#user_id").val();
+    		var commentText =$("textarea#commentId").val() ; 
+
+    		jQuery.ajax({
+    	    		type: "POST",
+    	    		url: "<?php echo base_url(); ?>index.php/data_controller/user_comments",
+					dataType: "json", 
+					data: {teacher_id:teacherId, user_id: userId, comments: commentText },
+        	    	success: function(){
+							$("#successComment").text("Comment Successfully Submitted.");
+            	    	},
+	    			error: function()	{
+		    			alert("Fail");
+		    			}
+
+    		});
+    		
+        	});
+    	
+        })
+
+    </script>
+    
 
     <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
@@ -63,12 +95,20 @@
  <?php 	echo form_open('data_controller/user_comments'); ?>  <!-- teacher_id , SessionId -->	
 	<h3>Comment</h3>
 	<form>
-	<?php echo form_textarea('comments', 'Enter Your Comments'); ?>
-		<input name="user_id"    hidden type="text" value="<?php echo $user_id; ?>"/>
-		<input name="teacher_id" hidden  type="text" value="<?php echo $teacher_id; ?>"/>		
-		<button type="submit" class="btn btn-default">Submit</button>	
+	<?php 
+	$data= array(
+			"name"	=> "comments",
+			"value" =>	"Enter Your Comments",
+			"id"	=>	"commentId"			
+	);
+	//echo form_textarea('comments', 'Enter Your Comments');
+		echo form_textarea($data); ?>
+		<input name="user_id"  id="user_id"  hidden type="text" value="<?php echo $user_id; ?>"/>
+		<input name="teacher_id" id="teacher_id" hidden  type="text" value="<?php echo $teacher_id; ?>"/>		
+		<button type="submit" class="btn btn-default submit">Submit</button>	
 	</form>	
- <?php echo form_close(); ?>	
+ <?php echo form_close(); ?>
+ <div id="successComment"> </div>	
 	
 	
 	<!--- Rating API --><div class="star-ratings">
