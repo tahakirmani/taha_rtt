@@ -15,6 +15,7 @@
     
     <!-- Comment AJAX Call -->
     <script type="text/javascript">
+    
     $(document).ready(function(){
 
     	$(".submit").click(function(event) {
@@ -31,21 +32,21 @@
 					dataType: "json", 
 					data: {teacher_id:teacherId, user_id: userId, comments: commentText },
         	    	success: function(){
-							$("#successComment").text("Comment Successfully Submitted.");
+							//$("#successComment").text("Comment Successfully Submitted.");
 							$('#commentsArea').load('http://localhost/rate_the_Teacher/index.php/data_controller/searched_data/'+teacherId);
 	
 	            	    	},
-	    			error: function()	{
+	    			error: function(){
 		    			alert("Fail");
 		    			}
     				});
     		
         	});
+    	
 
-
-
+    
     	//Rating AJAX
-    	/*
+    	
 
     	$(".rate_submit_btn").click(function(event) {
 
@@ -71,9 +72,10 @@
     		});
     		
         	});
+    	
 
-    	*/
-/*
+
+   	
 		$(".likeComment").click(function(event){
 			event.preventDefault();
 			var comment_id= $("input#comment_id").val();
@@ -97,8 +99,9 @@
 				});
 
 			});
-    	*/
-        });
+    	
+    	
+    });    
 
     </script>
     

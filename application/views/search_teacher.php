@@ -9,6 +9,44 @@
 
     <!-- Bootstrap -->
     <link href="<?php echo base_url() ?>assets/css/bootstrap.css" rel="stylesheet">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
+  	
+  	<script type="text/javascript">
+
+    $(document).ready(function(){
+	  	$("#searchData").keyup(function() {
+	  	  //alert( "-" );
+	  	  
+	  	  var teacher_name= $("input#searchData").val();
+	  	   
+		  	  jQuery.ajax({
+			  	type:"GET",
+			  	url: "<?php echo base_url(); ?>index.php/form_controller/searchTeacher",
+			  	dataType: "json",
+			  	data: {"teacher_name":teacher_name},
+			  	success: function(data){
+
+				  	var firstObj = data[1];
+				  	console.log(firstObj);
+
+				//alert(data.length());
+				
+			  		//$('#searchResult').load('http://localhost/rate_the_Teacher/index.php/load_view_controller/searchTeacher/');
+					//	jQuery.parseJSON(response);
+
+				  	},
+				error: function(){
+						alert("Fail");
+					}
+				
+
+		  		  
+			  	  });
+		  	  
+	  	});
+    });
+	
+  	</script>
 
     <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
@@ -25,13 +63,17 @@
  
   <div class="form-group">
     <label for="f_name">Search:</label>
-    <input name="search" type="text" class="form-control" id="search">
-  </div>
-  
-  
-<button type="submit" class="btn btn-default">Submit</button>
+    <input name="search" type="text" class="form-control" id="searchData">
+  </div>   
+	<button type="submit" class="btn btn-default">Submit</button>
   
 </form>  
+
+<div id="searchResult">
+	
+	<?php //echo json_decode($data);?>
+
+</div>
   
   </body>
  </html> 

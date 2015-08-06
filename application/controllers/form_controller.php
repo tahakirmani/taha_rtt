@@ -229,14 +229,18 @@ public function update_user_profile()
 
 public function searchTeacher()
 {
-	$teacher_name= strtolower($this->input->post('search'));
+	//$teacher_name= strtolower($this->input->post('search'));
+	$teacher_name= strtolower($this->input->post('teacher_name'));
 	
 	$this->load->model('teacher_model');
 	$data= $this->teacher_model->get_teacher_data_by_name($teacher_name);
 	
-	$data['searchData'] = $data;
 	
-	$this->load->view('searchResults',$data);
+	
+	$data['searchData'] = $data;
+	//echo print_r($data);
+	echo $jsonData= json_encode($data);
+	//$this->load->view('searchResults',$data);
 	
 }	
 
