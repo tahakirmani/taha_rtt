@@ -136,6 +136,11 @@ public function edit_comments()
 }	
 
 
+public function edit_comments_test_home()
+{
+	echo "T";
+}
+
 public function update_likes()
 {
 	$comment_id= $this->uri->segment(3);
